@@ -1,11 +1,12 @@
 package com.dh.ReservaConsulta.controller;
 
 import com.dh.ReservaConsulta.model.Dentista;
-import com.dh.ReservaConsulta.model.Paciente;
-import com.dh.ReservaConsulta.service.impl.DentistaServiceImpl;
+import com.dh.ReservaConsulta.service.DentistaService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -13,24 +14,21 @@ import java.util.List;
 public class DentistaController {
 
     @Autowired
-    private DentistaServiceImpl dentistaService;
+    private DentistaService dentistaService;
 
-    @GetMapping
-    public Dentista salvar(@RequestParam(value = "id") Integer id,
-                           @RequestParam(value = "nome") String nome,
-                           @RequestParam(value = "sobrenome") String sobrenome,
-                           @RequestParam(value = "matricula") String matricula){
-        return dentistaService.salvar(new Dentista(id, nome, sobrenome, matricula));
+    @PostMapping
+    public Dentista salvar(@RequestBody Dentista dentista) throws SQLException {
+        return dentistaService.salvar(dentista);
     }
 
     @GetMapping("/buscar")
-    public List<Dentista> buscarTodos() {
+    public List<Dentista> buscarTodos() throws SQLException {
         return dentistaService.buscarTodos();
     }
 
-    @GetMapping("/{id}")
-    public String excluir(@PathVariable Integer id){
-        return dentistaService.excluir(id);
+    @DeleteMapping("/deletar/{id}")
+    public void excluir(@PathVariable int id) throws SQLException{
+        dentistaService.excluir(id);
     }
 
 }
