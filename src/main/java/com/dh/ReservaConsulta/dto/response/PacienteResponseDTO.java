@@ -1,5 +1,6 @@
-package com.dh.ReservaConsulta.model;
+package com.dh.ReservaConsulta.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 @Getter
@@ -8,8 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @Builder
-public class Paciente {
-    private int id;
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class PacienteResponseDTO {
     private String nome;
     private String sobrenome;
     private String endereco;

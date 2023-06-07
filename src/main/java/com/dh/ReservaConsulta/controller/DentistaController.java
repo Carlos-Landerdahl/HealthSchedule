@@ -1,9 +1,14 @@
 package com.dh.ReservaConsulta.controller;
 
+import com.dh.ReservaConsulta.dto.request.DentistaRequestDTO;
+import com.dh.ReservaConsulta.dto.response.DentistaResponseDTO;
 import com.dh.ReservaConsulta.model.Dentista;
+import com.dh.ReservaConsulta.model.Paciente;
 import com.dh.ReservaConsulta.service.DentistaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
@@ -13,17 +18,22 @@ import java.util.List;
 @RequestMapping("/dentistas")
 public class DentistaController {
 
-    @Autowired
     private DentistaService dentistaService;
 
+    @Autowired
+    public DentistaController(DentistaService dentistaService) {
+        this.dentistaService = dentistaService;
+    }
+
     @PostMapping
-    public Dentista salvar(@RequestBody Dentista dentista) throws SQLException {
-        return dentistaService.salvar(dentista);
+    public ResponseEntity<DentistaResponseDTO> salvar(@RequestBody DentistaRequestDTO dentista) throws SQLException {
+        DentistaResponseDTO response = dentistaService.salvar(dentista);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @GetMapping("/buscar")
-    public List<Dentista> buscarTodos() throws SQLException {
-        return dentistaService.buscarTodos();
+    public ResponseEntity<List<Dentista>> buscarTodos() throws SQLException {
+        return ResponseEntity.status(HttpStatus.OK).body(dentistaService.buscarTodos());
     }
 
     @DeleteMapping("/deletar/{id}")

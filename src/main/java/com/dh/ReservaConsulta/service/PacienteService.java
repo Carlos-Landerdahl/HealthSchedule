@@ -1,8 +1,11 @@
 package com.dh.ReservaConsulta.service;
 
 import com.dh.ReservaConsulta.dao.IPaciente;
+import com.dh.ReservaConsulta.dto.request.PacienteRequestDTO;
+import com.dh.ReservaConsulta.dto.response.PacienteResponseDTO;
 import com.dh.ReservaConsulta.model.Paciente;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +22,13 @@ public class PacienteService {
         this.pacienteIDao = pacienteIDao;
     }
 
-    public Paciente salvar(Paciente paciente) throws SQLException {
-        return pacienteIDao.salvar(paciente);
+    public PacienteResponseDTO salvar(PacienteRequestDTO requestDTO) throws SQLException {
+        ObjectMapper mapper = new ObjectMapper();
+        Paciente paciente = mapper.convertValue(requestDTO, Paciente.class);
+        Paciente savePaciente = pacienteIDao.salvar(paciente);
+        PacienteResponseDTO pacienteResponseDTO = mapper.convertValue(savePaciente, PacienteResponseDTO.class);
+
+        return pacienteResponseDTO;
     }
 
     public List<Paciente> buscarTodos() throws SQLException {
