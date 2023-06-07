@@ -25,19 +25,20 @@ public class PacienteController {
     }
 
     @PostMapping
-    public ResponseEntity<PacienteResponseDTO> salvar(@RequestBody PacienteRequestDTO    paciente) throws SQLException {
+    public ResponseEntity<PacienteResponseDTO> salvar(@RequestBody PacienteRequestDTO paciente) throws SQLException {
         PacienteResponseDTO response = pacienteService.salvar(paciente);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @GetMapping("/buscar")
     public ResponseEntity<List<Paciente>> buscarTodos() throws SQLException {
-        return ResponseEntity.status(HttpStatus.OK).body(pacienteService.buscarTodos());
+        return ResponseEntity.ok().body(pacienteService.buscarTodos());
     }
 
     @DeleteMapping("/deletar/{id}")
-    public void excluir(@PathVariable int id) throws SQLException{
+    public ResponseEntity<Void> excluir(@PathVariable int id) throws SQLException{
         pacienteService.excluir(id);
+        return ResponseEntity.accepted().build();
     }
 
 }

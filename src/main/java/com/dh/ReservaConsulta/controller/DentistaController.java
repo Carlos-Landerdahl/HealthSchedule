@@ -33,12 +33,14 @@ public class DentistaController {
 
     @GetMapping("/buscar")
     public ResponseEntity<List<Dentista>> buscarTodos() throws SQLException {
-        return ResponseEntity.status(HttpStatus.OK).body(dentistaService.buscarTodos());
+        return ResponseEntity.ok().body(dentistaService.buscarTodos());
     }
 
     @DeleteMapping("/deletar/{id}")
-    public void excluir(@PathVariable int id) throws SQLException{
+    public ResponseEntity<Void> excluir(@PathVariable int id) throws SQLException{
         dentistaService.excluir(id);
+        return ResponseEntity.accepted().build();
+
     }
 
 }
