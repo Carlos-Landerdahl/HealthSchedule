@@ -61,7 +61,6 @@ public class DentistaDao implements IDentista<Dentista>{
                 dentistaList.add(dentista);
             }
         }
-
         return dentistaList;
     }
 
