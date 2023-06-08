@@ -1,10 +1,11 @@
-package com.dh.ReservaConsulta.service;
+package com.dh.ReservaConsulta.service.impl;
 
 import com.dh.ReservaConsulta.repository.IDentista;
 import com.dh.ReservaConsulta.dto.request.DentistaRequestDTO;
 import com.dh.ReservaConsulta.dto.response.DentistaResponseDTO;
 import com.dh.ReservaConsulta.entity.Dentista;
 
+import com.dh.ReservaConsulta.service.IDentistaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

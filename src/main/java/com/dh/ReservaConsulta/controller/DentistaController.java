@@ -3,7 +3,7 @@ package com.dh.ReservaConsulta.controller;
 import com.dh.ReservaConsulta.dto.request.DentistaRequestDTO;
 import com.dh.ReservaConsulta.dto.response.DentistaResponseDTO;
 import com.dh.ReservaConsulta.entity.Dentista;
-import com.dh.ReservaConsulta.service.DentistaService;
+import com.dh.ReservaConsulta.service.impl.DentistaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
