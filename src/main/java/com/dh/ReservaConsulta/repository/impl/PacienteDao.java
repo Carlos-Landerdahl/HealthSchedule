@@ -1,15 +1,16 @@
-package com.dh.ReservaConsulta.dao.impl;
+package com.dh.ReservaConsulta.repository.impl;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dh.ReservaConsulta.config.ConfiguracaoJdbc;
-import com.dh.ReservaConsulta.dao.IPaciente;
-import com.dh.ReservaConsulta.model.Paciente;
+import com.dh.ReservaConsulta.repository.IPaciente;
+import com.dh.ReservaConsulta.entity.Paciente;
 
 @Repository
 public class PacienteDao implements IPaciente<Paciente>{
@@ -67,6 +68,33 @@ public class PacienteDao implements IPaciente<Paciente>{
       }
     }
     return pacienteList;
+  }
+
+  @Override
+  public Optional<Paciente> buscarPorId(int id) throws SQLException {
+    Paciente paciente = null;
+
+    String query = String.format("SELECT * FROM paciente WHERE id='%s'", id);
+
+    try(Connection connection = configuracaoJdbc.conectarBancoDeDados();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query)) {
+
+      while (resultSet.next()){
+        int idPaciente = resultSet.getInt("id");
+        String nome = resultSet.getString("nome");
+        String sobrenome = resultSet.getString("sobrenome");
+        String endereco = resultSet.getString("endereco");
+        String rg = resultSet.getString("rg");
+        String dataalta = resultSet.getString("dataalta");
+
+        paciente = new Paciente(idPaciente, nome, sobrenome, endereco,rg, dataalta);
+      }
+
+    }catch(SQLException e){
+      e.printStackTrace();
+    }
+    return paciente != null ? Optional.of(paciente) : Optional.empty();
   }
 
   @Override

@@ -1,4 +1,4 @@
-package com.dh.ReservaConsulta.model;
+package com.dh.ReservaConsulta.entity;
 
 import lombok.*;
 

@@ -1,15 +1,16 @@
-package com.dh.ReservaConsulta.dao.impl;
+package com.dh.ReservaConsulta.repository.impl;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dh.ReservaConsulta.config.ConfiguracaoJdbc;
-import com.dh.ReservaConsulta.dao.IDentista;
-import com.dh.ReservaConsulta.model.Dentista;
+import com.dh.ReservaConsulta.repository.IDentista;
+import com.dh.ReservaConsulta.entity.Dentista;
 
 @Repository
 public class DentistaDao implements IDentista<Dentista>{
@@ -62,6 +63,32 @@ public class DentistaDao implements IDentista<Dentista>{
             }
         }
         return dentistaList;
+    }
+
+    @Override
+    public Optional<Dentista> buscarPorId(int id) throws SQLException {
+
+        Dentista dentista = null;
+
+        String query = String.format("SELECT * FROM dentista WHERE id='%s'", id);
+
+        try(Connection connection = configuracaoJdbc.conectarBancoDeDados();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()){
+                int idDentista = resultSet.getInt("id");
+                String nome = resultSet.getString("nome");
+                String sobrenome = resultSet.getString("sobrenome");
+                String matricula = resultSet.getString("matricula");
+
+                dentista = new Dentista(idDentista, nome, sobrenome, matricula);
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return dentista != null ? Optional.of(dentista) : Optional.empty();
     }
 
     @Override
