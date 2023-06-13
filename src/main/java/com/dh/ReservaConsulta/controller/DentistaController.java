@@ -18,12 +18,9 @@ import java.util.Optional;
 @RequestMapping("/dentistas")
 public class DentistaController {
 
+    @Autowired
     private DentistaService dentistaService;
 
-    @Autowired
-    public DentistaController(DentistaService dentistaService) {
-        this.dentistaService = dentistaService;
-    }
 
     @PostMapping
     public ResponseEntity<DentistaResponseDTO> salvar(@RequestBody DentistaRequestDTO dentista) throws SQLException {

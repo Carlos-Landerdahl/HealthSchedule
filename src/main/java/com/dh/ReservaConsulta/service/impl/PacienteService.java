@@ -1,11 +1,10 @@
 package com.dh.ReservaConsulta.service.impl;
 
-import com.dh.ReservaConsulta.repository.IPaciente;
+import com.dh.ReservaConsulta.repository.PacienteRepository;
 import com.dh.ReservaConsulta.dto.request.PacienteRequestDTO;
 import com.dh.ReservaConsulta.dto.response.PacienteResponseDTO;
 import com.dh.ReservaConsulta.entity.Paciente;
 
-import com.dh.ReservaConsulta.service.IPacienteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,37 +14,32 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PacienteService implements IPacienteService {
-
-    private IPaciente<Paciente> pacienteIDao;
+public class PacienteService{
 
     @Autowired
-    public PacienteService(IPaciente<Paciente> pacienteIDao){
-        this.pacienteIDao = pacienteIDao;
-    }
+    private PacienteRepository pacienteRepository;
 
-    @Override
     public PacienteResponseDTO salvar(PacienteRequestDTO requestDTO) throws SQLException {
         ObjectMapper mapper = new ObjectMapper();
         Paciente paciente = mapper.convertValue(requestDTO, Paciente.class);
-        Paciente savePaciente = pacienteIDao.salvar(paciente);
+        Paciente savePaciente = pacienteRepository.save(paciente);
         PacienteResponseDTO pacienteResponseDTO = mapper.convertValue(savePaciente, PacienteResponseDTO.class);
 
         return pacienteResponseDTO;
     }
 
-    @Override
+
     public List<Paciente> buscarTodos() throws SQLException {
-        return pacienteIDao.buscarTodos();
+        return pacienteRepository.findAll();
     }
 
-    @Override
+
     public Optional<Paciente> buscarPorId(int id) throws SQLException{
-        return pacienteIDao.buscarPorId(id);
+        return pacienteRepository.findById(id);
     }
 
-    @Override
+
     public void excluir(Integer id) throws SQLException {
-        pacienteIDao.excluir(id);
+        pacienteRepository.deleteById(id);
     }
 }
