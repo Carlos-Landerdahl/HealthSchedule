@@ -54,6 +54,16 @@ public class PacienteController {
         }
     }
 
+    @GetMapping("/buscar/{nome}")
+    public ResponseEntity<Optional<Paciente>> bsucarPorNome(@PathVariable String nome) throws SQLException{
+        Optional<Paciente> paciente = pacienteService.buscarPorNome(nome);
+        if (paciente.isPresent()){
+            return ResponseEntity.status(HttpStatus.OK).body(paciente);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<Void> excluir(@PathVariable int id) throws SQLException{
         Optional<Paciente> paciente = pacienteService.buscarPorId(id);

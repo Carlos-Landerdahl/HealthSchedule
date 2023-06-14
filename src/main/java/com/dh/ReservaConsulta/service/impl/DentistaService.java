@@ -39,6 +39,9 @@ public class DentistaService {
         return dentistaRepository.findById(id);
     }
 
+    public Optional<Dentista> buscarPorNome(String nome) throws SQLException{
+        return dentistaRepository.findDentistaByNomeContainingIgnoreCase(nome);
+    }
 
     public void excluir(int id) throws SQLException{
         dentistaRepository.deleteById(id);

@@ -52,6 +52,17 @@ public class DentistaController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+    @GetMapping("/buscar/nome/{nome}")
+    public ResponseEntity<Optional<Dentista>> buscarPorNome(@PathVariable String nome) throws SQLException{
+        Optional<Dentista> dentista = dentistaService.buscarPorNome(nome);
+        if (dentista.isPresent()){
+            return ResponseEntity.status(HttpStatus.OK).body(dentista);
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<Void> excluir(@PathVariable int id) throws SQLException{
         dentistaService.excluir(id);

@@ -38,6 +38,9 @@ public class PacienteService{
         return pacienteRepository.findById(id);
     }
 
+    public Optional<Paciente> buscarPorNome(String nome) throws SQLException{
+        return pacienteRepository.findPacienteByNomeContainingIgnoreCase(nome);
+    }
 
     public void excluir(Integer id) throws SQLException {
         pacienteRepository.deleteById(id);
