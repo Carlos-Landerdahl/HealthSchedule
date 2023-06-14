@@ -1,5 +1,6 @@
 package com.dh.ReservaConsulta.dto.response;
 
+import com.dh.ReservaConsulta.entity.EnderecoPaciente;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
@@ -13,7 +14,7 @@ import lombok.*;
 public class PacienteResponseDTO {
     private String nome;
     private String sobrenome;
-    private String endereco;
+    private EnderecoPaciente endereco;
     private String rg;
     private String dataAlta;
 }

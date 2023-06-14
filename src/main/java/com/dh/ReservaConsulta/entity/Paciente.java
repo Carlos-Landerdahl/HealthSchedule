@@ -1,5 +1,6 @@
 package com.dh.ReservaConsulta.entity;
 
+import com.dh.ReservaConsulta.entity.EnderecoPaciente;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,8 +25,8 @@ public class Paciente {
     @Column(name = "sobrenome")
     private String sobrenome;
 
-    @Column(name = "endereco")
-    private String endereco;
+    @Embedded
+    private EnderecoPaciente endereco;
 
     @Column(name = "registroGeral")
     private String rg;

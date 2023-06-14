@@ -54,7 +54,7 @@ public class PacienteController {
         }
     }
 
-    @GetMapping("/buscar/{nome}")
+    @GetMapping("/buscar/nome/{nome}")
     public ResponseEntity<Optional<Paciente>> bsucarPorNome(@PathVariable String nome) throws SQLException{
         Optional<Paciente> paciente = pacienteService.buscarPorNome(nome);
         if (paciente.isPresent()){
