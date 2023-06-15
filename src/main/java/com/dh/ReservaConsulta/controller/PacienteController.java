@@ -1,10 +1,12 @@
 package com.dh.ReservaConsulta.controller;
 
 import com.dh.ReservaConsulta.dto.request.PacienteRequestDTO;
+import com.dh.ReservaConsulta.dto.response.DentistaResponseDTO;
 import com.dh.ReservaConsulta.dto.response.PacienteResponseDTO;
 import com.dh.ReservaConsulta.entity.Paciente;
 import com.dh.ReservaConsulta.service.impl.PacienteService;
 
+import com.fasterxml.jackson.databind.JsonMappingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +33,18 @@ public class PacienteController {
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }else{
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PacienteResponseDTO> atualizar(@PathVariable int id, @RequestBody PacienteRequestDTO pacienteAtualizado) throws SQLException{
+        try{
+            PacienteResponseDTO paciente = pacienteService.atualizar(id, pacienteAtualizado);
+            return ResponseEntity.status(HttpStatus.OK).body(paciente);
+        }catch(SQLException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch(JsonMappingException e){
+            throw new RuntimeException(e);
         }
     }
 
