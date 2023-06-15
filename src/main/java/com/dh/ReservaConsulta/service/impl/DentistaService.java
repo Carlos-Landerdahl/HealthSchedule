@@ -5,6 +5,7 @@ import com.dh.ReservaConsulta.dto.request.DentistaRequestDTO;
 import com.dh.ReservaConsulta.dto.response.DentistaResponseDTO;
 import com.dh.ReservaConsulta.entity.Dentista;
 
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,25 @@ public class DentistaService {
 
         return dentistaResponseDTO;
     }
+
+    public DentistaResponseDTO atualizar(int id, DentistaRequestDTO dentistaAtualizadoDTO) throws SQLException, JsonMappingException {
+        Optional<Dentista> dentistaOptional = dentistaRepository.findById(id);
+
+        if (dentistaOptional.isPresent()) {
+            Dentista dentista = dentistaOptional.get();
+
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.updateValue(dentista, dentistaAtualizadoDTO);
+
+            Dentista dentistaSalvo = dentistaRepository.save(dentista);
+            DentistaResponseDTO dentistaResponseDTO = mapper.convertValue(dentistaSalvo, DentistaResponseDTO.class);
+
+            return dentistaResponseDTO;
+        } else {
+            throw new SQLException("Dentista não encontrado para este id : " + id);
+        }
+    }
+
 
 
     public List<Dentista> buscarTodos() throws SQLException {

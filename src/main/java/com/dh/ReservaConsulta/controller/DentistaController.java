@@ -5,6 +5,7 @@ import com.dh.ReservaConsulta.dto.response.DentistaResponseDTO;
 import com.dh.ReservaConsulta.entity.Dentista;
 import com.dh.ReservaConsulta.service.impl.DentistaService;
 
+import com.fasterxml.jackson.databind.JsonMappingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,19 @@ public class DentistaController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<DentistaResponseDTO> atualizar(@PathVariable int id, @RequestBody DentistaRequestDTO dentistaAtualizado) throws SQLException {
+        try {
+            DentistaResponseDTO dentista = dentistaService.atualizar(id, dentistaAtualizado);
+            return ResponseEntity.status(HttpStatus.OK).body(dentista);
+        } catch (SQLException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (JsonMappingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     @GetMapping("/buscar")
     public ResponseEntity<List<Dentista>> buscarTodos() throws SQLException {
