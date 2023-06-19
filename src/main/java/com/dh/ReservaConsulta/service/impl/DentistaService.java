@@ -5,6 +5,7 @@ import com.dh.ReservaConsulta.dto.request.DentistaRequestDTO;
 import com.dh.ReservaConsulta.dto.response.DentistaResponseDTO;
 import com.dh.ReservaConsulta.entity.Dentista;
 
+import com.dh.ReservaConsulta.service.IDentista;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class DentistaService {
+public class DentistaService implements IDentista<Dentista, DentistaRequestDTO, DentistaResponseDTO> {
     private DentistaRepository dentistaIDao;
 
     @Autowired

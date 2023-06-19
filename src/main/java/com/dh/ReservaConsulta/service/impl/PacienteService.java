@@ -5,6 +5,7 @@ import com.dh.ReservaConsulta.dto.request.PacienteRequestDTO;
 import com.dh.ReservaConsulta.dto.response.PacienteResponseDTO;
 import com.dh.ReservaConsulta.entity.Paciente;
 
+import com.dh.ReservaConsulta.service.IPaciente;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PacienteService{
+public class PacienteService implements IPaciente<Paciente, PacienteRequestDTO, PacienteResponseDTO> {
 
     @Autowired
     private PacienteRepository pacienteRepository;
@@ -61,7 +62,7 @@ public class PacienteService{
         return pacienteRepository.findPacienteByNomeContainingIgnoreCase(nome);
     }
 
-    public void excluir(Integer id) throws SQLException {
+    public void excluir(int id) throws SQLException {
         pacienteRepository.deleteById(id);
     }
 }

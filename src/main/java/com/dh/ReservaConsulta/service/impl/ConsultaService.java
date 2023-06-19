@@ -6,6 +6,7 @@ import com.dh.ReservaConsulta.entity.Paciente;
 import com.dh.ReservaConsulta.repository.ConsultaRepository;
 import com.dh.ReservaConsulta.repository.DentistaRepository;
 import com.dh.ReservaConsulta.repository.PacienteRepository;
+import com.dh.ReservaConsulta.service.IConsulta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ConsultaService {
+public class ConsultaService implements IConsulta<Consulta>{
 
     @Autowired
     private ConsultaRepository consultaRepository;
