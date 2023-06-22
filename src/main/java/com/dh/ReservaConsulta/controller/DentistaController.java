@@ -31,7 +31,7 @@ public class DentistaController {
             DentistaResponseDTO response = dentistaService.salvar(dentista);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }catch(Exception e){
-            throw new InvalidDataException("Não foram informados todas as informações sobre o dentista");
+            throw new InvalidDataException("Informe todos os dados do dentista");
         }
     }
 
@@ -41,7 +41,7 @@ public class DentistaController {
             DentistaResponseDTO dentista = dentistaService.atualizar(id, dentistaAtualizado);
             return ResponseEntity.status(HttpStatus.OK).body(dentista);
         } catch (Exception e) {
-          throw new InvalidDataException("Não foram informados todas as informações sobre o dentista");
+          throw new InvalidDataException("Informe todos os dados do dentista");
         }
     }
 
@@ -62,7 +62,7 @@ public class DentistaController {
         if (dentista.isPresent()){
             return ResponseEntity.status(HttpStatus.OK).body(dentista);
         }else {
-            throw new ResourceNotFoundException("Id não existe!");
+            throw new ResourceNotFoundException("O identificador não pertence a nenhum dentista");
         }
     }
 
@@ -73,7 +73,7 @@ public class DentistaController {
         if (dentista.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(dentista);
         } else {
-            throw new ResourceNotFoundException("Nome não existe!");
+            throw new ResourceNotFoundException("Nome não encontrado nos registros");
         }
     }
 
@@ -83,7 +83,7 @@ public class DentistaController {
         dentistaService.excluir(id);
         return ResponseEntity.accepted().build();
         } catch(Exception e) {
-            throw new ResourceNotFoundException("Recurso encontrado para o id: " + id);
+            throw new ResourceNotFoundException("O identificador não pertence a nenhum dentista");
         }
     }
 

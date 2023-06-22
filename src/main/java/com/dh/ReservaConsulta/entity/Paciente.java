@@ -4,6 +4,7 @@ import com.dh.ReservaConsulta.entity.EnderecoPaciente;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
@@ -19,18 +20,23 @@ public class Paciente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotEmpty(message = "Nome não pode ser vazio")
     @Column(name = "nome")
     private String nome;
 
+    @NotEmpty(message = "sobrenome não pode ser vazio")
     @Column(name = "sobrenome")
     private String sobrenome;
 
+    @NotEmpty(message = "Endereço não pode ser vazio")
     @Embedded
     private EnderecoPaciente endereco;
 
+    @NotEmpty(message = "Rg não pode ser vazio")
     @Column(name = "registroGeral")
     private String rg;
 
+    @NotEmpty(message = "Data da alta do paciente não pode ser vazio")
     @Column(name = "dataAlta")
     private String dataAlta;
 }
