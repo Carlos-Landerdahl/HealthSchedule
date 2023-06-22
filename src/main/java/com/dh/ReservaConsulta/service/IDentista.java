@@ -1,5 +1,6 @@
 package com.dh.ReservaConsulta.service;
 
+import com.dh.ReservaConsulta.exception.InvalidDataException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import java.sql.SQLException;
@@ -7,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IDentista<TYPE, REQ, RES> {
-    RES salvar(REQ requestDTO) throws SQLException;
+    RES salvar(REQ requestDTO) throws SQLException, InvalidDataException;
 
     RES atualizar(int id, REQ atualizadoDTO) throws JsonMappingException, SQLException;
 
