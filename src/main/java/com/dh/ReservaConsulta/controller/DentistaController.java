@@ -25,7 +25,7 @@ public class DentistaController {
     @Autowired
     private DentistaService dentistaService;
 
-    @PostMapping
+    @PostMapping("/admin")
     public ResponseEntity<DentistaResponseDTO> salvar(@RequestBody DentistaRequestDTO dentista) throws SQLException, InvalidDataException {
         try{
             DentistaResponseDTO response = dentistaService.salvar(dentista);

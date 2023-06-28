@@ -28,7 +28,6 @@ public class Paciente {
     @Column(name = "sobrenome")
     private String sobrenome;
 
-    @NotEmpty(message = "Endereço não pode ser vazio")
     @Embedded
     private EnderecoPaciente endereco;
 

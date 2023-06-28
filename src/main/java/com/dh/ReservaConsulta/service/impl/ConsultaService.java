@@ -7,6 +7,7 @@ import com.dh.ReservaConsulta.repository.ConsultaRepository;
 import com.dh.ReservaConsulta.repository.DentistaRepository;
 import com.dh.ReservaConsulta.repository.PacienteRepository;
 import com.dh.ReservaConsulta.service.IConsulta;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,32 @@ public class ConsultaService implements IConsulta<Consulta>{
     public List<Consulta> buscarTodos() {
         return consultaRepository.findAll();
     }
+
+    public Consulta atualizar(int id, Consulta consultaAtualizada) {
+        Optional<Consulta> consultaOptional = consultaRepository.findById(id);
+        if (consultaOptional.isPresent()) {
+            Consulta consultaExistente = consultaOptional.get();
+
+            if (consultaAtualizada.getDentista() != null) {
+                consultaExistente.setDentista(consultaAtualizada.getDentista());
+            }
+            if (consultaAtualizada.getPaciente() != null) {
+                consultaExistente.setPaciente(consultaAtualizada.getPaciente());
+            }
+            if (consultaAtualizada.getDataConsulta() != null) {
+                consultaExistente.setDataConsulta(consultaAtualizada.getDataConsulta());
+            }
+            if (consultaAtualizada.getHoraConsulta() != null) {
+                consultaExistente.setHoraConsulta(consultaAtualizada.getHoraConsulta());
+            }
+
+            return consultaRepository.save(consultaExistente);
+        } else {
+            throw new RuntimeException("Consulta não encontrada para este id : " + id);
+        }
+    }
+
+
 
     public Optional<Consulta> buscarPorIdConsulta(int id) {
         return consultaRepository.findById(id);

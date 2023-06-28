@@ -28,14 +28,10 @@ public class PacienteController {
         this.pacienteService = pacienteService;
     }
 
-    @PostMapping
+    @PostMapping("/admin")
     public ResponseEntity<PacienteResponseDTO> salvar(@RequestBody PacienteRequestDTO paciente) throws SQLException, InvalidDataException {
-        try {
-            PacienteResponseDTO response = pacienteService.salvar(paciente);
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        } catch (Exception e) {
-            throw new InvalidDataException("Informe todos os dados do paciente");
-        }
+        PacienteResponseDTO response = pacienteService.salvar(paciente);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("/{id}")

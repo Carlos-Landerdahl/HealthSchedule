@@ -19,7 +19,7 @@ public class ConsultaController {
     @Autowired
     private ConsultaService consultaService;
 
-    @PostMapping
+    @PostMapping("/admin")
     public ResponseEntity<Consulta> salvar(@RequestBody Consulta consulta) throws InvalidDataException {
         Consulta novaConsulta = consultaService.salvar(consulta);
         if(novaConsulta != null){
@@ -36,6 +36,16 @@ public class ConsultaController {
             return ResponseEntity.status(HttpStatus.OK).body(consultaList);
         }else{
             throw new InvalidDataException("Nenhum registro encontrado");
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Consulta> atualizar(@PathVariable int id, @RequestBody Consulta consultaAtualizada) throws InvalidDataException, ResourceNotFoundException {
+        Consulta consulta = consultaService.atualizar(id, consultaAtualizada);
+        if (consulta != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(consulta);
+        } else {
+            throw new InvalidDataException("Não foi possível atualizar a consulta, verifique se todos os dados estão corretos");
         }
     }
 
