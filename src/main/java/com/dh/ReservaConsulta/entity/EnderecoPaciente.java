@@ -3,6 +3,7 @@ package com.dh.ReservaConsulta.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 @Getter
@@ -15,23 +16,23 @@ import javax.validation.constraints.NotEmpty;
 @Embeddable
 public class EnderecoPaciente {
 
-    @NotEmpty(message = "Estado não pode ser vazio")
+    @NotBlank(message = "Estado não pode ser vazio")
     @Column(name = "estado")
     private String estado;
 
-    @NotEmpty(message = "Cidade não pode ser vazio")
+    @NotBlank(message = "Cidade não pode ser vazio")
     @Column(name = "cidade")
     private String cidade;
 
-    @NotEmpty(message = "Bairro não pode ser vazio")
+    @NotBlank(message = "Bairro não pode ser vazio")
     @Column(name = "bairro")
     private String bairro;
 
-    @NotEmpty(message = "Rua não pode ser vazio")
+    @NotBlank(message = "Rua não pode ser vazio")
     @Column(name = "rua")
     private String rua;
 
-    @NotEmpty(message = "Numero não pode ser vazio")
+    @NotBlank(message = "Numero não pode ser vazio")
     @Column(name = "numero")
     private String numero;
 }

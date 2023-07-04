@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +21,7 @@ public class ConsultaController {
     private ConsultaService consultaService;
 
     @PostMapping("/admin")
-    public ResponseEntity<Consulta> salvar(@RequestBody Consulta consulta) throws InvalidDataException {
+    public ResponseEntity<Consulta> salvar(@RequestBody @Valid Consulta consulta) throws InvalidDataException {
         Consulta novaConsulta = consultaService.salvar(consulta);
         if(novaConsulta != null){
             return ResponseEntity.status(HttpStatus.CREATED).body(novaConsulta);

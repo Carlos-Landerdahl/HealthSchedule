@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
@@ -27,12 +28,12 @@ public class Usuario implements UserDetails {
     private Long id;
 
     @NotNull
-    @NotEmpty(message = "Login não pode ser vazio")
+    @NotBlank(message = "Login não pode ser vazio")
     @Column(name = "login")
     private String login;
 
     @NotNull
-    @NotEmpty(message = "Senha não pode ser vazio")
+    @NotBlank(message = "Senha não pode ser vazio")
     @Column(name = "senha")
     private String senha;
 
