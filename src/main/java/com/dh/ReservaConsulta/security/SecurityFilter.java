@@ -4,7 +4,6 @@ import com.dh.ReservaConsulta.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -30,7 +29,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         if (tokenJwt != null) {
             String subject = tokenService.getSubject(tokenJwt);
 
-            UserDetails usuario = usuarioRepository.findByLogin(subject);
+            UserDetails usuario = usuarioRepository.findByNome(subject);
 
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());

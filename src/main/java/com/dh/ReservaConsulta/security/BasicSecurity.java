@@ -28,6 +28,7 @@ public class BasicSecurity {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/usuarios/login").permitAll()
+                .antMatchers(HttpMethod.GET, "/usuarios/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/usuarios/cadastrar").permitAll()
                 .antMatchers(HttpMethod.POST, "/dentistas").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/pacientes").hasRole("ADMIN")

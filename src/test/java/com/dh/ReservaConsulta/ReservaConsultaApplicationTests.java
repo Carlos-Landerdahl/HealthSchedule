@@ -87,10 +87,10 @@ class ReservaConsultaApplicationTests {
 	@DisplayName("Cadastrando uma consulta")
 	void cadastrarConsulta() throws Exception {
 		var dentista = new Dentista();
-		dentista.setId(2); // ID do dentista
+		dentista.setId(1); // ID do dentista
 
 		var paciente = new Paciente();
-		paciente.setId(2); // ID do paciente
+		paciente.setId(1); // ID do paciente
 
 		var consulta = new Consulta();
 		consulta.setDentista(dentista);

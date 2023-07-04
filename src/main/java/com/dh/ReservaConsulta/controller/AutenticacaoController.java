@@ -35,7 +35,7 @@ public class AutenticacaoController {
     @PostMapping("/login")
     public ResponseEntity logar(@RequestBody @Valid UsuarioLoginDto usuarioLoginDto) {
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(usuarioLoginDto.getLogin(), usuarioLoginDto.getSenha());
+                new UsernamePasswordAuthenticationToken(usuarioLoginDto.getNome(), usuarioLoginDto.getSenha());
         Authentication authenticate = manager.authenticate(authenticationToken);
         String tokenJwt = tokenService.gerarToken((Usuario) authenticate.getPrincipal());
 

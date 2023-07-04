@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Collections;
@@ -28,9 +27,9 @@ public class Usuario implements UserDetails {
     private Long id;
 
     @NotNull
-    @NotBlank(message = "Login não pode ser vazio")
-    @Column(name = "login")
-    private String login;
+    @NotBlank(message = "Nome não pode ser vazio")
+    @Column(name = "nome")
+    private String nome;
 
     @NotNull
     @NotBlank(message = "Senha não pode ser vazio")
@@ -39,12 +38,12 @@ public class Usuario implements UserDetails {
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    private UsuarioRole usuarioRole;
+    private UsuarioRole role;
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority(usuarioRole.name());
+        SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.name());
         return Collections.singleton(grantedAuthority);
     }
 
@@ -55,7 +54,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.login;
+        return this.nome;
     }
 
     @Override

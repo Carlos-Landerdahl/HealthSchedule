@@ -12,7 +12,7 @@ import lombok.*;
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UsuarioRequestDto {
-    private String login;
+    private String nome;
     private String senha;
-    private UsuarioRole usuarioRole;
+    private UsuarioRole role;
 }

@@ -11,6 +11,6 @@ import lombok.*;
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UsuarioLoginDto {
-    private String login;
+    private String nome;
     private String senha;
 }

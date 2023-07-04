@@ -13,8 +13,8 @@ import lombok.*;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UsuarioResponseDto {
     private Long id;
-    private String login;
+    private String nome;
     private String senha;
-    private UsuarioRole usuarioRole;
+    private UsuarioRole role;
 
 }
