@@ -43,7 +43,7 @@ Por favor, leia [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b246794029
 
 ## Autores
 
-* **Carlos Roberto landerdahl Neto** - [SeuNome](https://github.com/Carlos-Landerdah)
+* **Carlos Roberto landerdahl Neto**
 * **Bruno Chaves**
 * **Raquel França**
 
