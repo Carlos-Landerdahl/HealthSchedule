@@ -10,7 +10,6 @@ Essas instruções o ajudarão a obter uma cópia do projeto em execução em su
 
 O que você precisa para instalar o software e como instalá-los:
 
-- JDK 11
 - Maven
 - H2
 
