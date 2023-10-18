@@ -22,21 +22,26 @@ public class BasicSecurity {
     @Autowired
     private SecurityFilter securityFilter;
 
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf().disable()
+        http.csrf().disable()
                 .httpBasic().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/usuarios/login").permitAll()
-                .antMatchers(HttpMethod.GET, "/usuarios/login").permitAll()
-                .antMatchers(HttpMethod.POST, "/usuarios/cadastrar").permitAll()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/h2-console/**").permitAll()  // Permite o acesso à console H2
+                .antMatchers(HttpMethod.POST, "/usuario/entrar").permitAll()
+                .antMatchers(HttpMethod.GET, "/usuario/entrar").permitAll()
+                .antMatchers(HttpMethod.POST, "/usuario/cadastrar").permitAll()
                 .antMatchers(HttpMethod.POST, "/dentistas").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/pacientes").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/consultas").hasRole("ADMIN")
                 .antMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()
-                .anyRequest().authenticated()
-                .and().addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
+                .anyRequest().authenticated();
+
+        http.headers().frameOptions().disable();
+        http.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
+        return http.build();
     }
 
     @Bean

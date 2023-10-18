@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/usuario")
 public class AutenticacaoController {
     @Autowired
     private AuthenticationManager manager;
@@ -32,7 +32,7 @@ public class AutenticacaoController {
     @Autowired
     private TokenService tokenService;
 
-    @PostMapping("/login")
+    @PostMapping("/entrar")
     public ResponseEntity logar(@RequestBody @Valid UsuarioLoginDto usuarioLoginDto) {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(usuarioLoginDto.getNome(), usuarioLoginDto.getSenha());

@@ -25,7 +25,7 @@ public class DentistaController {
     @Autowired
     private DentistaService dentistaService;
 
-    @PostMapping("/admin")
+    @PostMapping
     public ResponseEntity<DentistaResponseDTO> salvar(@RequestBody DentistaRequestDTO dentista) throws SQLException, InvalidDataException {
         try{
             DentistaResponseDTO response = dentistaService.salvar(dentista);
@@ -46,7 +46,7 @@ public class DentistaController {
     }
 
 
-    @GetMapping("/buscar")
+    @GetMapping
     public ResponseEntity<List<Dentista>> buscarTodos() throws SQLException, InvalidDataException {
         List<Dentista> dentistaList = dentistaService.buscarTodos();
         if(!dentistaList.isEmpty()){
@@ -56,7 +56,7 @@ public class DentistaController {
         }
     }
 
-    @GetMapping("/buscar/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Optional<Dentista>> buscarPorId(@PathVariable int id) throws SQLException, ResourceNotFoundException {
         Optional<Dentista> dentista = dentistaService.buscarPorId(id);
         if (dentista.isPresent()){
@@ -66,7 +66,7 @@ public class DentistaController {
         }
     }
 
-    @GetMapping("/buscar/nome/{nome}")
+    @GetMapping("/{nome}")
     public ResponseEntity<Optional<Dentista>> buscarPorNome(@PathVariable String nome) throws ResourceNotFoundException, SQLException {
         Optional<Dentista> dentista = dentistaService.buscarPorNome(nome);
 
@@ -77,7 +77,7 @@ public class DentistaController {
         }
     }
 
-    @DeleteMapping("/deletar/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable int id) throws SQLException, ResourceNotFoundException {
         try{
         dentistaService.excluir(id);
