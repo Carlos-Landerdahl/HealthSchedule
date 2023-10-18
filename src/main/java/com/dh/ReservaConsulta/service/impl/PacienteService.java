@@ -9,6 +9,7 @@ import com.dh.ReservaConsulta.service.IPaciente;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
@@ -21,6 +22,7 @@ public class PacienteService implements IPaciente<Paciente, PacienteRequestDTO, 
     @Autowired
     private PacienteRepository pacienteRepository;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public PacienteResponseDTO salvar(PacienteRequestDTO requestDTO) throws SQLException {
         ObjectMapper mapper = new ObjectMapper();
         Paciente paciente = mapper.convertValue(requestDTO, Paciente.class);

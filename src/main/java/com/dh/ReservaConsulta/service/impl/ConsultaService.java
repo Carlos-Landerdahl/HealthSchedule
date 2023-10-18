@@ -6,9 +6,11 @@ import com.dh.ReservaConsulta.entity.Paciente;
 import com.dh.ReservaConsulta.repository.ConsultaRepository;
 import com.dh.ReservaConsulta.repository.DentistaRepository;
 import com.dh.ReservaConsulta.repository.PacienteRepository;
+import com.dh.ReservaConsulta.repository.UsuarioRepository;
 import com.dh.ReservaConsulta.service.IConsulta;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +28,10 @@ public class ConsultaService implements IConsulta<Consulta>{
     @Autowired
     private PacienteRepository pacienteRepository;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Consulta salvar(Consulta consulta) {
         Dentista dentista = dentistaRepository.findById(consulta.getDentista().getId()).orElse(null);
         Paciente paciente = pacienteRepository.findById(consulta.getPaciente().getId()).orElse(null);

@@ -4,6 +4,7 @@ import com.dh.ReservaConsulta.entity.Consulta;
 import com.dh.ReservaConsulta.exception.InvalidDataException;
 import com.dh.ReservaConsulta.exception.ResourceNotFoundException;
 import com.dh.ReservaConsulta.service.impl.ConsultaService;
+import com.dh.ReservaConsulta.service.impl.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +21,13 @@ public class ConsultaController {
     @Autowired
     private ConsultaService consultaService;
 
-    @PostMapping("/admin")
+    @Autowired
+    private UsuarioService usuarioService;
+
+    @PostMapping
     public ResponseEntity<Consulta> salvar(@RequestBody @Valid Consulta consulta) throws InvalidDataException {
         Consulta novaConsulta = consultaService.salvar(consulta);
+
         if(novaConsulta != null){
             return ResponseEntity.status(HttpStatus.CREATED).body(novaConsulta);
         }else{
@@ -30,7 +35,7 @@ public class ConsultaController {
         }
     }
 
-    @GetMapping("/buscar")
+    @GetMapping
     public ResponseEntity<List<Consulta>> buscarTodos() throws InvalidDataException {
         List<Consulta> consultaList = consultaService.buscarTodos();
         if(!consultaList.isEmpty()){
@@ -50,7 +55,7 @@ public class ConsultaController {
         }
     }
 
-    @GetMapping("/buscar/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Optional<Consulta>> buscarPorIdConsulta(@PathVariable int id) throws ResourceNotFoundException {
         Optional<Consulta> consulta = consultaService.buscarPorIdConsulta(id);
         if (consulta.isPresent()){
@@ -80,7 +85,7 @@ public class ConsultaController {
         }
     }
 
-    @DeleteMapping("/deletar/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable int id) throws ResourceNotFoundException {
         try {
             consultaService.excluir(id);

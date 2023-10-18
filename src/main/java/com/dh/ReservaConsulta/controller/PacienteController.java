@@ -28,7 +28,7 @@ public class PacienteController {
         this.pacienteService = pacienteService;
     }
 
-    @PostMapping("/admin")
+    @PostMapping
     public ResponseEntity<PacienteResponseDTO> salvar(@RequestBody PacienteRequestDTO paciente) throws SQLException, InvalidDataException {
         PacienteResponseDTO response = pacienteService.salvar(paciente);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -44,7 +44,7 @@ public class PacienteController {
         }
     }
 
-    @GetMapping("/buscar")
+    @GetMapping
     public ResponseEntity<List<Paciente>> buscarTodos() throws SQLException, InvalidDataException {
         List<Paciente> pacienteList = pacienteService.buscarTodos();
         if (!pacienteList.isEmpty()){
@@ -54,7 +54,7 @@ public class PacienteController {
         }
     }
 
-    @GetMapping("/buscar/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Optional<Paciente>> buscarPorId(@PathVariable int id) throws SQLException, ResourceNotFoundException {
         Optional<Paciente> paciente = pacienteService.buscarPorId(id);
         if (paciente.isPresent()) {
@@ -64,7 +64,7 @@ public class PacienteController {
         }
     }
 
-    @GetMapping("/buscar/nome/{nome}")
+    @GetMapping("/{nome}")
     public ResponseEntity<Optional<Paciente>> bsucarPorNome(@PathVariable String nome) throws SQLException, ResourceNotFoundException {
         Optional<Paciente> paciente = pacienteService.buscarPorNome(nome);
         if (paciente.isPresent()){
@@ -74,7 +74,7 @@ public class PacienteController {
         }
     }
 
-    @DeleteMapping("/deletar/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable int id) throws SQLException, InvalidDataException {
         Optional<Paciente> paciente = pacienteService.buscarPorId(id);
         if(paciente.isPresent()){
