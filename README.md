@@ -1,4 +1,4 @@
-# Sistema reserva de consulta para clínica odontológica
+# Health Schedule é um sistema reserva de consulta para clínica odontológica
 
 Este projeto é uma aplicação Java completa construída com Spring Boot, Maven, JPA, JWT para autenticação, e usa DTO para transferência de dados.
 
